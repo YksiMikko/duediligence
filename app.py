@@ -2,7 +2,7 @@
 Valuatum Due Diligence & Neuvotteluapuri
 ==========================================
 Yhden tiedoston Streamlit-sovellus, joka ottaa syötteenä yrityksen keskeiset
-talousluvut ja tuottaa Google Gemini -mallin (gemini-2.5-flash) avulla
+talousluvut ja tuottaa Google Gemini -mallin (gemini-3.6-flash) avulla
 strukturoidun (Pydantic / JSON-skeema) tarkastuslistan yrityskauppa- tai
 luottoneuvotteluja varten.
 
@@ -259,7 +259,7 @@ st.markdown(
 )
 
 
-MODEL_NAME = "gemini-2.5-flash"
+MODEL_NAME = "gemini-3.6-flash"
 CREDIT_RATINGS = ["AAA", "AA", "A", "B", "C"]
 
 DEFAULT_VALUES = {
