@@ -1,5 +1,5 @@
 """
-Valuatum Due Diligence & Neuvotteluapuri
+Due Diligence & Neuvotteluapuri
 ==========================================
 Yhden tiedoston Streamlit-sovellus, joka ottaa syötteenä yrityksen keskeiset
 talousluvut ja tuottaa Google Gemini -mallin (gemini-3.6-flash) avulla
@@ -39,17 +39,14 @@ from google.genai import types
 # ---------------------------------------------------------------------------
 
 st.set_page_config(
-    page_title="Valuatum Due Diligence & Neuvotteluapuri",
+    page_title="Due Diligence & Neuvotteluapuri",
     page_icon="📊",
     layout="wide",
 )
 
 
-# ---------------------------------------------------------------------------
-# Valuatum-bränditeema (väripaletti, typografia, hero) — valuatum.fi-tyylinen
-# ---------------------------------------------------------------------------
 
-VALUATUM_CSS = """
+VALUE_CSS = """
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
@@ -98,7 +95,7 @@ p, span, label, .stMarkdown, .stCaption{
     color: var(--vt-muted);
 }
 
-/* --- Hero-osio, joka toistaa valuatum.fi:n etusivun rakenteen --- */
+/* --- Hero-osio --- */
 .vt-hero{
     margin: -1rem -1rem 2rem -1rem;
     padding: 1.4rem 2.5rem 2.6rem 2.5rem;
@@ -159,7 +156,7 @@ p, span, label, .stMarkdown, .stCaption{
     line-height: 1.6;
 }
 
-/* --- Napit pill-muotoisina kuten valuatum.fi:n CTA:t --- */
+/* --- Napit pill-muotoisina CTA:t --- */
 div.stButton > button, div.stDownloadButton > button{
     background: linear-gradient(135deg, var(--vt-btn-1), var(--vt-btn-2)) !important;
     color: var(--vt-white) !important;
@@ -233,18 +230,18 @@ hr, div[data-testid="stDivider"]{ border-color: var(--vt-border) !important; }
 </style>
 """
 
-VALUATUM_LOGO_SVG = """
+VALUE_LOGO_SVG = """
 <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
   <path d="M2 13 L15 4 L11 13 L15 22 Z" fill="#9AD13A"/>
 </svg>
 """
 
-st.markdown(VALUATUM_CSS, unsafe_allow_html=True)
+st.markdown(VALUE_CSS, unsafe_allow_html=True)
 st.markdown(
     f"""
     <div class="vt-hero">
         <div class="vt-nav">
-            <div class="vt-logo">{VALUATUM_LOGO_SVG} Valuatum</div>
+            <div class="vt-logo">{VALUE_LOGO_SVG} Value</div>
             <div class="vt-nav-badge">Due Diligence -työkalu</div>
         </div>
         <div class="vt-eyebrow">Financial Analysis Solutions</div>
@@ -379,7 +376,7 @@ def resolve_api_key(manual_key: str) -> Optional[str]:
 # ---------------------------------------------------------------------------
 
 SYSTEM_INSTRUCTION = """\
-Olet "Valuatum" – kokenut senior-analyytikko, joka on erikoistunut yritysjärjestelyiden \
+Olet suuren pankin kokenut senior-analyytikko, joka on erikoistunut yritysjärjestelyiden \
 (M&A) due diligence -tarkastuksiin ja luottoriskianalyysiin. Autat neuvottelijaa \
 (esim. pankin luottoanalyytikko tai ostajan due diligence -tiimi) valmistautumaan \
 neuvotteluun kohdeyrityksen kanssa.
@@ -396,7 +393,7 @@ Analysoi annetut talousluvut kriittisesti ja tunnista erityisesti:
 - myyntisaamisten kiertoajan ja luottoriskin yhteys
 - mahdolliset "red flag" -signaalit, jotka kaipaavat lisäselvitystä
 
-Ota huomioon yrityksen toimiala ja Valuatumin antama luottoluokka kontekstina \
+Ota huomioon yrityksen toimiala ja luottoluokka kontekstina \
 riskitason arvioinnissa – matalampi luottoluokka (B, C) tarkoittaa, että \
 analyysin ja kysymyslistan tulee olla tiukempi ja yksityiskohtaisempi.
 
@@ -417,7 +414,7 @@ Analysoi seuraava kohdeyritys ja tuota due diligence- ja neuvottelutarkastuslist
 ## Yrityksen perustiedot
 - Nimi: {data['company_name'] or "Ei annettu"}
 - Toimiala: {data['industry'] or "Ei annettu"}
-- Valuatumin luottoluokka: {data['credit_rating']}
+- Luottoluokka: {data['credit_rating']}
 
 ## Talousluvut
 - Liikevaihto: {data['revenue']:,.0f} €
@@ -594,7 +591,7 @@ with st.sidebar:
 
     st.text_input("Yrityksen nimi", key="company_name")
     st.text_input("Toimiala", key="industry")
-    st.selectbox("Valuatumin luottoluokka", CREDIT_RATINGS, key="credit_rating")
+    st.selectbox("Luottoluokka", CREDIT_RATINGS, key="credit_rating")
 
     st.divider()
     st.button(
